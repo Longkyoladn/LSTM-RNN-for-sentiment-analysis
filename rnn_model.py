@@ -358,10 +358,10 @@ def train_rnn(
               f"| Val Loss: {val_loss:.4f} - Acc: {val_metrics['accuracy']*100:.2f}% - F1: {val_metrics['f1_score']:.4f}")
 
         # Lưu checkpoint tốt nhất theo Val F1
-        if val_metrics['f1_score'] > best_val_f1:
-            best_val_f1 = val_metrics['f1_score']
+        if val_metrics['val_loss'] > best_val_f1:
+            best_val_f1 = val_metrics['val_loss']
             torch.save(model.state_dict(), best_checkpoint_path)
-            print(f"  -> Lưu mô hình tốt nhất (Val F1: {best_val_f1:.4f}) vào {best_checkpoint_path}")
+            print(f"  -> Lưu mô hình tốt nhất (Val Loss: {best_val_f1:.4f}) vào {best_checkpoint_path}")
 
     # 6. Đánh giá cuối cùng trên tập Test bằng checkpoint tốt nhất
     if os.path.exists(best_checkpoint_path):
