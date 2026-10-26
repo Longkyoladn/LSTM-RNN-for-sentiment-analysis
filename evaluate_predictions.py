@@ -74,25 +74,3 @@ def aggregate_chunk_predictions(
 
     return review_level, metrics
 
-if __name__ == "__main__":
-    # Ví dụ kiểm tra hoạt động của module tính xác suất gộp
-    mock_data = pd.DataFrame([
-        # Review ngắn (1 chunk)
-        {"review_id": "rev_0001", "chunk_id": 0, "sentiment": 1, "pred_prob": 0.85},
-        {"review_id": "rev_0002", "chunk_id": 0, "sentiment": 0, "pred_prob": 0.15},
-        # Review dài bị chia thành 3 chunks (chunk 0, 1, 2)
-        # Giả sử mô hình dự đoán xác suất từng chunk là: 0.60, 0.70, 0.80 -> Trung bình: 0.70 (Positive)
-        {"review_id": "rev_0003", "chunk_id": 0, "sentiment": 1, "pred_prob": 0.60},
-        {"review_id": "rev_0003", "chunk_id": 1, "sentiment": 1, "pred_prob": 0.70},
-        {"review_id": "rev_0003", "chunk_id": 2, "sentiment": 1, "pred_prob": 0.80},
-    ])
-
-    print("--- DỮ LIỆU ĐẦU VÀO MOCK (CẤP ĐỘ CHUNK): ---")
-    print(mock_data)
-
-    rev_df, metrics = aggregate_chunk_predictions(mock_data)
-    print("\n--- KẾT QUẢ GỘP XÁC SUẤT (CẤP ĐỘ REVIEW): ---")
-    print(rev_df)
-    print("\n--- CHỈ SỐ ĐÁNH GIÁ: ---")
-    for k, v in metrics.items():
-        print(f"  {k}: {v}")
